@@ -18,10 +18,6 @@ public class MapGenerator {
     }
 
 
-    public void prep(Integer row, Integer col){
-        map = new Integer[row][col];
-    }
-
 
     public void draw(Graphics2D g){
         for(int i = 0; i < map.length; i++) {
