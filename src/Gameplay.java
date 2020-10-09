@@ -64,14 +64,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.setColor(Color.YELLOW);
         g.fillOval(ballPosX, ballPosY, 20, 20);
 
-
         gameOver(g);
         youWin(g);
 
-
-
         g.dispose();
-
     }
 
     @Override
@@ -179,42 +175,43 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
             //mid left\
             if(ball.getX() < playerX -5 && ball.getX() < playerX- 25 ){
-                ballXDirLeft();
+                changeBallDirPaddle(Directions.LEFT);
 
             }
             //mid right
             if(ball.getX() < playerX +5 && ball.getX() < playerX+ 25 ){
-                ballXDirRight();
+                changeBallDirPaddle(Directions.RIGHT);
             }
             //far left
             if(ball.getX() < playerX -26 && ball.getX() < playerX- 45 ){
-                ballXDirLeft();
+                changeBallDirPaddle(Directions.LEFT);
             }
             //far right
             if(ball.getX() < playerX +26 && ball.getX() < playerX+ 45 ){
-                ballXDirRight();
+                changeBallDirPaddle(Directions.RIGHT);
             }
             //end left
             if(ball.getX() < playerX -46){
-                ballXDirLeft();
+                changeBallDirPaddle(Directions.LEFT);
             }
             //end right
             if(ball.getX() < playerX +46){
-                ballXDirRight();
+                changeBallDirPaddle(Directions.RIGHT);
             }
 
         }
     }
 
-    public void ballXDirLeft(){
-        if(ballXDir <= 0){
-            ballXDir = -ballXDir;
+    public void changeBallDirPaddle(Directions directions){
+        if(directions == Directions.LEFT) {
+            if(ballXDir <= 0){
+                ballXDir = -ballXDir;
+            }
         }
-    }
-
-    public void ballXDirRight(){
-        if(ballXDir >= 0){
-            ballXDir = -ballXDir;
+        if(directions == Directions.RIGHT){
+            if(ballXDir >= 0){
+                ballXDir = -ballXDir;
+            }
         }
     }
 
@@ -228,8 +225,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         if(direction == Directions.LEFT){
             playerX -= 20;
         }
-
-
     }
 
 
