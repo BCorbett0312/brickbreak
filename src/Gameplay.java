@@ -18,7 +18,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private Integer playerX = 310;
     private Integer ballPosX = 120;
     private Integer ballPosY = 350;
-    private Integer ballXDir = -1;
+    private Integer ballXDir = 1;
     private Integer ballYDir = -2;
 
     private MapGenerator mapGenerator;
@@ -170,48 +170,54 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     }
 
     public void ballCheckPaddle(){
-
+        Rectangle ball = new Rectangle(ballPosX, ballPosY, 20, 20);
+        Rectangle paddle = new Rectangle(playerX, 550, 100, 8);
 
         //middle
-        if(new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX, 550, 100, 8))){
+        if(ball.intersects(paddle)) {
             ballYDir = -ballYDir;
-        }
 
-        //mid left
-        if(new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX-15, 550, 21, 8))){
-            ballYDir = -ballYDir;
-            ballXDir = -ballXDir;
-        }
+            //mid left\
+            if(ball.getX() < playerX -5 && ball.getX() < playerX- 25 ){
+                ballXDirLeft();
 
-        //mid right
-        if(new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX+15, 550, 21, 8))){
-            ballYDir = -ballYDir;
-            ballXDir = -ballXDir;
-        }
+            }
+            //mid right
+            if(ball.getX() < playerX +5 && ball.getX() < playerX+ 25 ){
+                ballXDirRight();
+            }
+            //far left
+            if(ball.getX() < playerX -26 && ball.getX() < playerX- 45 ){
+                ballXDirLeft();
+            }
+            //far right
+            if(ball.getX() < playerX +26 && ball.getX() < playerX+ 45 ){
+                ballXDirRight();
+            }
+            //end left
+            if(ball.getX() < playerX -46){
+                ballXDirLeft();
+            }
+            //end right
+            if(ball.getX() < playerX +46){
+                ballXDirRight();
+            }
 
-        //far left
-        if(new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX -35, 550, 21, 8))){
-            ballYDir = -ballYDir;
-            ballXDir = -ballXDir-1;
-        }
-
-        //far right
-        if(new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX +35, 550, 21, 8))){
-            ballYDir = -ballYDir;
-            ballXDir = -ballXDir+1;
-       }
-
-        //end left
-        if(new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX-47, 550, 3, 8))){
-            ballYDir = -ballYDir;
-            ballXDir = -ballXDir+2;
-        }
-        //end right
-        if(new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX+47, 550, 3, 8))){
-            ballYDir = -ballYDir;
-            ballXDir = -ballXDir-2;
         }
     }
+
+    public void ballXDirLeft(){
+        if(ballXDir <= 0){
+            ballXDir = -ballXDir;
+        }
+    }
+
+    public void ballXDirRight(){
+        if(ballXDir >= 0){
+            ballXDir = -ballXDir;
+        }
+    }
+
 
 
     public void movePlayer(Directions direction){
