@@ -2,6 +2,7 @@ import java.awt.*;
 
 public class MapGenerator {
 
+
     public Integer[][] map;
     public Integer brickWidth;
     public Integer brickHeight;
@@ -16,8 +17,6 @@ public class MapGenerator {
         brickWidth = 540/col;
         brickHeight = 150/row;
     }
-
-
 
     public void draw(Graphics2D g, DisplayObjects displayObjects){
         for(int i = 0; i < map.length; i++) {

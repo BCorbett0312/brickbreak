@@ -69,7 +69,6 @@ public class BallChecker {
     }
 
 
-
     //ball checks for collision against objects
 
     public void ballCheckBorders(){
@@ -141,6 +140,7 @@ public class BallChecker {
                         mapGenerator.setBrickValue(0, i, j);
                         totalBricks--;
                         score += 5;
+                        speedUp();
 
                         if (ballPosX + 19 <= brickRect.x || ballPosX + 1 >= brickRect.x + brickRect.width) {
                             ballXDir = -ballXDir;
@@ -158,6 +158,21 @@ public class BallChecker {
     public void ballMove(){
         ballPosX += ballXDir;
         ballPosY += ballYDir;
+    }
+
+    public void speedUp(){
+        if(ballXDir >0){
+            ballXDir++;
+        }
+        else {
+            ballXDir--;
+        }
+        if(ballYDir >0){
+            ballYDir++;
+        }
+        else {
+            ballYDir--;
+        }
     }
 
 
