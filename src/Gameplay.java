@@ -14,9 +14,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private Integer delay = 8;
 
     public Gameplay(){
-        mapGenerator = new MapGenerator(3, 7);
-        ballChecker = new BallChecker(mapGenerator);
         displayObjects = new DisplayObjects();
+        mapGenerator = displayObjects.getMapGenerator();
+        ballChecker = new BallChecker(mapGenerator);
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -26,15 +26,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     public void paint(Graphics g){
         displayObjects.background(g);
-
-        //map
-        mapGenerator.draw((Graphics2D) g, displayObjects);
-
+        displayObjects.map(g);
         displayObjects.borders(g);
         displayObjects.scores(g, ballChecker);
         displayObjects.paddle(g, ballChecker);
         displayObjects.ball(g, ballChecker);
-
         displayObjects.gameOver(g, ballChecker);
         displayObjects.youWin(g, ballChecker);
 
@@ -59,8 +55,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             if(!ballChecker.getPlay()){
                 ballChecker.resetGame();
-                mapGenerator = new MapGenerator(3, 7);
-                ballChecker.setMapGenerator(mapGenerator);
+                displayObjects.newMap();
+                ballChecker.setMapGenerator(displayObjects.getMapGenerator());
                 repaint();
             }
         }

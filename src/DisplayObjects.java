@@ -2,18 +2,27 @@ import java.awt.*;
 
 public class DisplayObjects {
 
-    public DisplayObjects(){
+    private MapGenerator mapGenerator;
 
+    public DisplayObjects(){
+        mapGenerator = new MapGenerator(3, 7);
     }
 
+    public MapGenerator getMapGenerator(){
+        return this.mapGenerator;
+    }
+
+    public void newMap(){
+        mapGenerator = new MapGenerator(3, 7);
+    }
 
     public void background(Graphics g){
         g.setColor(Color.BLACK);
         g.fillRect(1,1,692,592);
     }
 
-    public void block(Graphics g){
-
+    public void map(Graphics g){
+        mapGenerator.draw((Graphics2D) g, this);
     }
 
     public void borders(Graphics g){
