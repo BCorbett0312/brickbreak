@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 
 public class DisplayObjects {
@@ -10,7 +11,25 @@ public class DisplayObjects {
 
     public MapGenerator getMapGenerator(){
         return this.mapGenerator;
+
     }
+
+
+
+
+    public void paint(Graphics g, BallChecker ballChecker){
+        background(g);
+        map(g);
+        borders(g);
+        scores(g, ballChecker);
+        paddle(g, ballChecker);
+        ball(g, ballChecker);
+        gameOver(g, ballChecker);
+        youWin(g, ballChecker);
+
+        g.dispose();
+    }
+
 
     public void newMap(){
         mapGenerator = new MapGenerator(3, 7);

@@ -1,7 +1,10 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BallChecker {
+
+
 
     //Keeps the game alive
     private Boolean play = false;
@@ -25,26 +28,33 @@ public class BallChecker {
         this.mapGenerator = mapGenerator;
     }
 
+
+
     //Accessors for fields for other parts of game
     public Boolean getPlay(){
         return play;
     }
-    public Integer getScore(){
-        return this.score;
-    }
-    public Integer getBallPosY(){
-        return this.ballPosY;
-    }
+    public Integer getScore() { return score; }
+    public Integer getBallPosY() { return ballPosY; }
     public Integer getTotalBricks(){
-        return this.totalBricks;
+        return totalBricks;
     }
     public Integer getPlayerX(){
-        return this.playerX;
+        return playerX;
     }
     public Integer getBallPosX(){
-        return this.ballPosX;
+        return ballPosX;
     }
 
+
+    public void checkGameState(){
+        if (getPlay()) {
+            ballMove();
+            ballCheckBorders();
+            ballCheckPaddle();
+            ballCheckBlock();
+        }
+    }
 
     //Reset Game
     public void endGame(){
@@ -53,7 +63,7 @@ public class BallChecker {
         ballYDir = 0;
     }
 
-    public void resetGame(){
+    public void resetPositions(){
         play = true;
         ballPosX = ThreadLocalRandom.current().nextInt(20, 500);
         ballPosY = 280;
@@ -140,7 +150,7 @@ public class BallChecker {
                         mapGenerator.setBrickValue(0, i, j);
                         totalBricks--;
                         score += 5;
-                        speedUp();
+//                        speedUp();
 
                         if (ballPosX + 19 <= brickRect.x || ballPosX + 1 >= brickRect.x + brickRect.width) {
                             ballXDir = -ballXDir;
@@ -160,20 +170,20 @@ public class BallChecker {
         ballPosY += ballYDir;
     }
 
-    public void speedUp(){
-        if(ballXDir >0){
-            ballXDir++;
-        }
-        else {
-            ballXDir--;
-        }
-        if(ballYDir >0){
-            ballYDir++;
-        }
-        else {
-            ballYDir--;
-        }
-    }
+//    public void speedUp(){
+//        if(ballXDir >0){
+//            ballXDir++;
+//        }
+//        else {
+//            ballXDir--;
+//        }
+//        if(ballYDir >0){
+//            ballYDir++;
+//        }
+//        else {
+//            ballYDir--;
+//        }
+//    }
 
 
     public void changeBallDirPaddle(Directions directions){

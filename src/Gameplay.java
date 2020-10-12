@@ -9,14 +9,13 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     private final Timer timer;
     private final DisplayObjects displayObjects;
-    private MapGenerator mapGenerator;
     private final BallChecker ballChecker;
     private Integer delay = 8;
 
     public Gameplay(){
+
         displayObjects = new DisplayObjects();
-        mapGenerator = displayObjects.getMapGenerator();
-        ballChecker = new BallChecker(mapGenerator);
+        ballChecker = new BallChecker(displayObjects.getMapGenerator());
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -25,16 +24,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     }
 
     public void paint(Graphics g){
-        displayObjects.background(g);
-        displayObjects.map(g);
-        displayObjects.borders(g);
-        displayObjects.scores(g, ballChecker);
-        displayObjects.paddle(g, ballChecker);
-        displayObjects.ball(g, ballChecker);
-        displayObjects.gameOver(g, ballChecker);
-        displayObjects.youWin(g, ballChecker);
-
-        g.dispose();
+        displayObjects.paint(g, ballChecker);
     }
 
     @Override
@@ -54,21 +44,20 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         }
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             if(!ballChecker.getPlay()){
-                ballChecker.resetGame();
-                displayObjects.newMap();
-                ballChecker.setMapGenerator(displayObjects.getMapGenerator());
+                resetGame();
                 repaint();
             }
         }
     }
 
+    public void resetGame(){
+        ballChecker.resetPositions();
+        displayObjects.newMap();
+        ballChecker.setMapGenerator(displayObjects.getMapGenerator());
+    }
+
     public void ballCheck() {
-        if (ballChecker.getPlay()) {
-            ballChecker.ballMove();
-            ballChecker.ballCheckBorders();
-            ballChecker.ballCheckPaddle();
-            ballChecker.ballCheckBlock();
-        }
+        ballChecker.checkGameState();
     }
 
     @Override
